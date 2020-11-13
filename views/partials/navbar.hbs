@@ -1,0 +1,19 @@
+<nav>
+    <div class="nav-wrapper teal darken-1">
+        <a href="/" class="brand-logo nav-logo" style="font-family: 'Pacifico'"><i
+                class="material-icons left">dvr</i>Todo App</a>
+        <ul class="right hide-on-med-and-down">
+            {{#if isIndex}}
+            <li class="active teal darken-2"><a href="/">Todos</a></li>
+            {{else}}
+            <li><a href="/">Todos</a></li>
+            {{/if}}
+
+            {{#if isCreate}}
+            <li class="active teal darken-2"><a href="/create">Create</a></li>
+            {{else}}
+            <li><a href="/create">Create</a></li>
+            {{/if}}
+        </ul>
+    </div>
+</nav>

@@ -1,0 +1,62 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.todo-block {
+  padding-top: 20px;
+  display: flex;
+  flex-direction: row;
+  width: 600px;
+}
+
+.todo span.completed {
+  text-decoration: line-through;
+}
+
+.todos {
+  flex-grow: 1;
+}
+
+.todo {
+  height: 55px;
+  margin-bottom: 10px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  background: #f3f3f3;
+  padding: 1rem;
+  border-radius: 24px;
+}
+
+.btn {
+  border-radius: 20px;
+}
+
+.todo i {
+  z-index: 2;
+}
+
+.nav-logo {
+  margin-left: 10px;
+}
+
+ul {
+  margin-left: 10px;
+}
+
+.delete-btns {
+  flex-grow: 0;
+  margin-bottom: 10px;
+  height: 55px;
+  display: flex;
+  align-items: center;
+}
