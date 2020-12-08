@@ -1,5 +1,8 @@
 # TodoApp
 Учебный проект для заметок с backend-ом на MongoDB
 
-Для запуска
-#npm run dev
+## Установка
+Для запуска проекта
+```bash
+npm run dev
+``` 
