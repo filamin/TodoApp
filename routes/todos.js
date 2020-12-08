@@ -3,31 +3,12 @@ const Todo = require("../modals/Todo");
 const router = Router();
 
 router.get("/", async (req, res) => {
-  res.status(302).json({ message: "Чаты доступны по адресу /todos" });
-});
-
-router.get("/todos", async (req, res) => {
-  const todos = await Todo.find({}).lean(); //.lean
-  // res.status(200).json(todos);
+  const todos = await Todo.find({}).lean();
   res.render("index", {
-  title: "Todos",
-  isIndex: true,
-  todos,
+    title: "Todos",
+    isIndex: true,
+    todos,
   });
-});
-
-router.get("/todos/:id", async (req, res) => {
-  const lengthOfIdInMongoDb = 24;
-  if (req.params.id.length == lengthOfIdInMongoDb) {
-    const todo = await Todo.findById({ _id: req.params.id }).lean(); //.lean
-    if (todo) {
-      res.status(200).json(todo);
-    } else {
-      res.status(404).json({ message: "id не найден" });
-    }
-  } else {
-    res.status(400).json({ message: "Неверный id" });
-  }
 });
 
 router.get("/create", (req, res) => {
@@ -35,7 +16,6 @@ router.get("/create", (req, res) => {
     title: "Create Todo",
     isCreate: true,
   });
-  // res.status(200).json({ message: "Страница создания" });
 });
 
 router.post("/create", async (req, res) => {
@@ -45,31 +25,13 @@ router.post("/create", async (req, res) => {
     });
     await todo.save();
     res.redirect("/");
-    // res
-    //   .status(200)
-    //   .json({ message: `Todo c названием ${req.body.title} cохранено` });
   } else {
     res.redirect("/create");
-    // res.status(400).json({ message: `Не введен title` });
   }
 });
 
-router.patch("/change-status/:id", async (req, res) => {
-  const lengthOfIdInMongoDb = 24;
-  // if (req.params.id.length == lengthOfIdInMongoDb) {
-  //   const todo = await Todo.findById(req.params.id);
-  //   if (todo) {
-  //     todo.completed = !todo.completed;
-  //     await todo.save();
-  //     res
-  //       .status(400)
-  //       .json({ message: `${todo.title} - completed : ${todo.completed}` });
-  //   } else {
-  //     res.status(404).json({ message: "id не найден" });
-  //   }
-  // } else {
-  //   res.status(400).json({ message: "Неверный id" });
-  // }
+router.post("/complete", async (req, res) => {
+  const checked = req.body.checked;
   const todos = await Todo.find({}).lean();
   async function asyncForEach(array, callback) {
     for (let index = 0; index < array.length; index++) {
@@ -105,26 +67,9 @@ router.patch("/change-status/:id", async (req, res) => {
   });
 });
 
-router.delete("/delete/:id", async (req, res) => {
-  // const lengthOfIdInMongoDb = 24;
-  // if (req.params.id.length == lengthOfIdInMongoDb) {
-  //   const todo = await Todo.findById(req.params.id);
-  //   if (todo) {
-  //     todo.remove();
-  //     res.status(400).json({ message: `${todo.title} - deleted` });
-  //   } else {
-  //     res.status(404).json({ message: "id не найден" });
-  //   }
-  // } else {
-  //   res.status(400).json({ message: "Неверный id" });
-  // }
+router.post("/delete", async (req, res) => {
   await Todo.findByIdAndDelete(req.body.id);
   res.redirect("/");
-});
-
-//Errors
-router.get("*", (req, res) => {
-  res.status(404).json({ message: "Страница не найдена" });
 });
 
 module.exports = router;
